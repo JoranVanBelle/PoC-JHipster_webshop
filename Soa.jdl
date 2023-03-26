@@ -1,0 +1,129 @@
+application {
+  config {
+    baseName webshop
+    reactive true
+    packageName com.webshop.soa.shop
+    applicationType gateway
+    authenticationType jwt
+    buildTool maven
+    clientFramework react
+    devDatabaseType mysql
+    prodDatabaseType mysql
+    serviceDiscoveryType eureka
+    testFrameworks [gatling]
+
+  }
+  entities Customer, Inventory, Transport, Pricing, Order
+}
+
+application {
+  config {
+    baseName inventory
+    reactive true
+    packageName com.webshop.soa.inventory
+    applicationType microservice
+    authenticationType jwt
+    buildTool maven
+    databaseType sql
+    devDatabaseType mysql
+    prodDatabaseType mysql
+    enableHibernateCache false
+    serverPort 8081
+    serviceDiscoveryType eureka
+  }
+  entities Inventory
+}
+
+application {
+  config {
+    baseName transport
+    reactive true
+    packageName com.webshop.soa.transport
+    applicationType microservice
+    authenticationType jwt
+    buildTool maven
+    databaseType sql
+    devDatabaseType mysql
+    prodDatabaseType mysql
+    enableHibernateCache false
+    serverPort 8082
+    serviceDiscoveryType eureka
+  }
+  entities Transport
+}
+
+application {
+  config {
+    baseName pricing
+    reactive true
+    packageName com.webshop.soa.pricing
+    applicationType microservice
+    authenticationType jwt
+    buildTool maven
+    databaseType sql
+    devDatabaseType mysql
+    prodDatabaseType mysql
+    enableHibernateCache false
+    serverPort 8083
+    serviceDiscoveryType eureka
+  }
+  entities Pricing
+}
+
+application {
+  config {
+    baseName order
+    reactive true
+    packageName com.webshop.soa.order
+    applicationType microservice
+    authenticationType jwt
+    buildTool maven
+    databaseType sql
+    devDatabaseType mysql
+    prodDatabaseType mysql
+    serverPort 8084
+    serviceDiscoveryType eureka
+  }
+  entities Order
+}
+
+entity Customer {
+    username String required
+    address String required
+}
+
+entity Inventory {
+	inventoryID Long required
+    name String required
+    quantity Long required
+}
+
+entity Transport {
+	transportID Long required
+    transportName String required
+}
+
+entity Pricing {
+	pricingID Long required
+    name String required
+    price BigDecimal required min(0)
+}
+
+entity Order {
+	orderID Long required
+    orderPrice Double required
+    orderQuantity Long required
+    username String required
+    transportID Long required
+}
+
+relationship OneToOne {
+    Customer{user(login) required} to User
+}
+
+deployment {
+	deploymentType docker-compose
+  serviceDiscoveryType eureka
+    appsFolders [webshop, inventory, transport, pricing, order]
+    dockerRepositoryName "SoaWebshop"
+}

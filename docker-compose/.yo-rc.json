@@ -1,0 +1,13 @@
+{
+  "generator-jhipster": {
+    "appsFolders": ["webshop", "inventory", "transport", "pricing", "order"],
+    "clusteredDbApps": [],
+    "deploymentType": "docker-compose",
+    "directoryPath": "../",
+    "dockerRepositoryName": "SoaWebshop",
+    "gatewayType": "SpringCloudGateway",
+    "jwtSecretKey": "MWE2MWQ4Y2MyZmVjMmM5ODg2MWZmMzM1ZjY2ZDRmNWU3NDY2NmExNDFhYmEyNjMyNWVhYmFlYjQ5NTg0MTZmZDVjOTY0YzJhNThjNDJhMjQ0MWFiMjg0N2MzM2Y2MTJlMWFlMA==",
+    "monitoring": "no",
+    "serviceDiscoveryType": "eureka"
+  }
+}
